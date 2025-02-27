@@ -8,13 +8,13 @@
 
 import UIKit
 
-struct QuizQuestion {
-    var question : String
-    var isTrue : Bool
+struct Question {
+    var q : String
+    var a : String
     
-    init(question: String, isTrue: Bool) {
-        self.question = question
-        self.isTrue = isTrue
+    init(q: String, a: String) {
+        self.q = q
+        self.a = a
     }
 }
 
@@ -29,10 +29,19 @@ class ViewController: UIViewController {
     @IBOutlet weak var falseBtn: UIButton!
     
     let questions = [
-        QuizQuestion(question: "Four + Two = Six?", isTrue: true),
-        QuizQuestion(question: "10 - 5 = 3", isTrue: true),
-        QuizQuestion(question: "Lion is an animal", isTrue: true),
-        QuizQuestion(question: "Cat have 2 legs & 2 arms", isTrue: false)
+        Question(q: "A slug's blood is green.", a: "True"),
+                Question(q: "Approximately one quarter of human bones are in the feet.", a: "True"),
+                Question(q: "The total surface area of two human lungs is approximately 70 square metres.", a: "True"),
+                Question(q: "In West Virginia, USA, if you accidentally hit an animal with your car, you are free to take it home to eat.", a: "True"),
+                Question(q: "In London, UK, if you happen to die in the House of Parliament, you are technically entitled to a state funeral, because the building is considered too sacred a place.", a: "False"),
+                Question(q: "It is illegal to pee in the Ocean in Portugal.", a: "True"),
+                Question(q: "You can lead a cow down stairs but not up stairs.", a: "False"),
+                Question(q: "Google was originally called 'Backrub'.", a: "True"),
+                Question(q: "Buzz Aldrin's mother's maiden name was 'Moon'.", a: "True"),
+                Question(q: "The loudest sound produced by any animal is 188 decibels. That animal is the African Elephant.", a: "False"),
+                Question(q: "No piece of square dry paper can be folded in half more than 7 times.", a: "False"),
+                Question(q: "Chocolate affects a dog's heart and nervous system; a few ounces are enough to kill a small dog.", a: "True")
+
     ]
     var currentQuestionIndex : Int = 0
     
@@ -46,11 +55,9 @@ class ViewController: UIViewController {
     
     
     @IBAction func onButtonPressed(_ sender: UIButton) {
-        let currentQuestion : QuizQuestion = questions[currentQuestionIndex]
+        let currentQuestion : Question = questions[currentQuestionIndex]
         
-        let userAnswer : Bool = sender.currentTitle! == "True" ? true : false
-        
-        if userAnswer == currentQuestion.isTrue  {
+        if sender.currentTitle! == currentQuestion.a  {
             print("Correct!")
         } else {
             print("Incorrect!")
@@ -66,7 +73,7 @@ class ViewController: UIViewController {
     }
     
     func renderQuestion() {
-        questionLabel.text = questions[currentQuestionIndex].question
+        questionLabel.text = questions[currentQuestionIndex].q
     }
     
 
