@@ -8,6 +8,17 @@
 
 import UIKit
 
+struct QuizQuestion {
+    var question : String
+    var isTrue : Bool
+    
+    init(question: String, isTrue: Bool) {
+        self.question = question
+        self.isTrue = isTrue
+    }
+}
+
+
 class ViewController: UIViewController {
     
     @IBOutlet weak var questionLabel: UILabel!
@@ -18,10 +29,10 @@ class ViewController: UIViewController {
     @IBOutlet weak var falseBtn: UIButton!
     
     let questions = [
-        ["Four + Two = Six?", "True"],
-        ["10 - 5 = 3", "True"],
-        ["Lion is an animal", "True"],
-        ["Cat have 2 legs & 2 arms", "False"],
+        QuizQuestion(question: "Four + Two = Six?", isTrue: true),
+        QuizQuestion(question: "10 - 5 = 3", isTrue: true),
+        QuizQuestion(question: "Lion is an animal", isTrue: true),
+        QuizQuestion(question: "Cat have 2 legs & 2 arms", isTrue: false)
     ]
     var currentQuestionIndex : Int = 0
     
@@ -35,10 +46,11 @@ class ViewController: UIViewController {
     
     
     @IBAction func onButtonPressed(_ sender: UIButton) {
-        let userAnswer : String = sender.currentTitle!
-        let actualAnswer : String = questions[currentQuestionIndex][1]
+        let currentQuestion : QuizQuestion = questions[currentQuestionIndex]
         
-        if userAnswer == actualAnswer {
+        let userAnswer : Bool = sender.currentTitle! == "True" ? true : false
+        
+        if userAnswer == currentQuestion.isTrue  {
             print("Correct!")
         } else {
             print("Incorrect!")
@@ -54,7 +66,7 @@ class ViewController: UIViewController {
     }
     
     func renderQuestion() {
-        questionLabel.text = questions[currentQuestionIndex][0]
+        questionLabel.text = questions[currentQuestionIndex].question
     }
     
 
