@@ -50,7 +50,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         
-        renderQuestion()
+        renderUI()
     }
     
     
@@ -59,8 +59,10 @@ class ViewController: UIViewController {
         
         if sender.currentTitle! == currentQuestion.a  {
             print("Correct!")
+            sender.backgroundColor = UIColor.green
         } else {
             print("Incorrect!")
+            sender.backgroundColor = UIColor.red
         }
         
         if currentQuestionIndex == questions.count - 1 {
@@ -69,10 +71,18 @@ class ViewController: UIViewController {
             currentQuestionIndex += 1
         }
         
-        renderQuestion()
+        Timer.scheduledTimer(withTimeInterval: 0.1, repeats: false) { (timer) in
+            self.renderUI()
+        }
+        
     }
     
-    func renderQuestion() {
+    @objc func renderUI() {
+        trueBtn.backgroundColor = UIColor.clear
+        falseBtn.backgroundColor = UIColor.clear
+        
+        progressBar.progress = Float(currentQuestionIndex) / Float(questions.count)
+        
         questionLabel.text = questions[currentQuestionIndex].q
     }
     
