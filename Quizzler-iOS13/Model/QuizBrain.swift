@@ -24,9 +24,17 @@ struct QuizBrain {
     ]
     
     var currentQuestionIndex : Int = 0
+    var score : Int = 0
     
-    func validateAnswer(_ userAnswer : String) -> Bool {
-        return questions[currentQuestionIndex].a == userAnswer
+    mutating func validateAnswer(_ userAnswer : String) -> Bool {
+        var isCorrectAnswer : Bool = false
+        
+        if userAnswer == questions[currentQuestionIndex].a {
+            isCorrectAnswer = true
+            score += 1
+        }
+        
+        return isCorrectAnswer
     }
     
     func currentQuestionTitle() -> String {
@@ -37,9 +45,14 @@ struct QuizBrain {
         return Float(currentQuestionIndex) / Float(questions.count)
     }
     
+    func getScore() -> String {
+        return "Score: \(score)"
+    }
+    
     mutating func moveToNextQuestion() {
         if currentQuestionIndex == questions.count - 1 {
             currentQuestionIndex = 0
+            score = 0
         }else {
             currentQuestionIndex += 1
         }
